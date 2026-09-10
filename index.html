@@ -27,12 +27,18 @@
             --radius: 16px;
         }
 
+        html {
+            overflow-x: hidden;
+            width: 100%;
+        }
+
         body {
             font-family: 'Exo 2', sans-serif;
             line-height: 1.6;
             color: var(--light);
             background: var(--darker);
             overflow-x: hidden;
+            width: 100%;
             background-image: 
                 radial-gradient(circle at 10% 20%, rgba(0, 187, 249, 0.05) 0%, transparent 20%),
                 radial-gradient(circle at 90% 80%, rgba(241, 91, 181, 0.05) 0%, transparent 20%);
@@ -318,10 +324,13 @@ header::after {
 
         /* Hero Section */
         .hero {
-            height: 100vh;
+            height: auto;
+            min-height: 100vh;
+            min-height: 100svh; /* accounts for mobile browser address-bar chrome */
             display: flex;
             align-items: center;
             padding-top: 80px;
+            padding-bottom: 60px;
             position: relative;
             overflow: hidden;
         }
@@ -475,7 +484,7 @@ header::after {
         /* Projects Section */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
             gap: 40px;
             margin-top: 40px;
         }
@@ -643,7 +652,7 @@ header::after {
         /* Contact Section */
         .contact-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
             gap: 50px;
         }
 
@@ -942,6 +951,57 @@ header::after {
             .btn {
                 width: 100%;
                 text-align: center;
+            }
+        }
+
+        /* Extra-small phones: tighten spacing so nothing feels cramped
+           or forces a wider layout than the screen actually has. */
+        @media (max-width: 400px) {
+            .container {
+                width: 100%;
+                padding: 0 18px;
+            }
+
+            h1 {
+                font-size: 2.3rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.25rem;
+            }
+
+            .hero-description {
+                font-size: 1rem;
+            }
+
+            .stats-grid {
+                gap: 15px;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .stat-label {
+                font-size: 0.8rem;
+            }
+
+            .project-content,
+            .timeline-card {
+                padding: 20px;
+            }
+
+            .contact-item {
+                padding: 15px;
+                gap: 12px;
+            }
+
+            .expertise-card {
+                padding: 28px 18px;
+            }
+
+            .about-image {
+                margin-bottom: -25px;
             }
         }
 
@@ -1474,6 +1534,19 @@ header::after {
                 width: 100%;
                 max-width: 320px;
                 margin: 25px auto 0;
+            }
+
+            /* The photo container had a fixed height; once the terminal
+               card became a normal-flow element below the photo, it had
+               no room reserved for it and overlapped the section below.
+               Letting the container grow with its content fixes that. */
+            .hero-img-container {
+                height: auto;
+            }
+
+            .hero-img {
+                height: auto;
+                aspect-ratio: 1 / 1;
             }
         }
 
